@@ -1,0 +1,73 @@
+{% load static%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" >
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-1"></div>
+
+
+<h2>Отправьте нам сообщение:</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    <h3>Ваше ФИО:</h3>
+    {{ form.user }}
+    <h3>Ваше сообщение:</h3>
+    {{ form.message }}
+    <br>
+    <input class="btn btn-info btn-lg" type="submit" value="Отправить">
+    {% if user.is_staff %}
+    <a href="/ad/" class="btn btn-info btn-lg">ОДМЕН</a>
+    {% endif %}
+</form>
+ </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <hr>
+<h3>Ответы на вопросы:</h3>
+
+{% for mo in mod %}
+    {% if mo.answer %}
+        <div class="container">
+           <div class="row">
+                <div  class="alert alert-info" ><div style="font-size:18px;">Автор: {{ mo.user  }} | Дата: {{ mo.data_new }}</div>
+               <hr>
+               <div style="font-size:20px;">
+               Сообщение: {{ mo.message }}<br>
+                </div></div>
+                <div class="alert alert-success" style="font-size:18px;">Ответ: {{ mo.answer }}</div>
+        <br>
+        <br>
+           </div>
+        </div>
+    {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+
+ <!--<form action="/catalog/addcomment/{{ art.id }}/" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{{ form_comments.as_p }}-->
+    <!--<input class="btn btn-success" type="submit" value="Отправить" />-->
+<!--</form>-->
+      <!---->
+
+
+
+</body>
+</html>

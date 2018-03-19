@@ -1,0 +1,58 @@
+{% load static%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" >
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2"></div>
+            <h1>Ты шо одмен?</h1>
+            <br>
+
+            {% for ob in new %}
+            {% if not ob.answer %}
+        <div class="alert alert-info" ><div style="font-size:18px;">Автор: {{ob.user}} | Дата: {{ob.data_new}}</div>
+            <hr>
+            <div style="font-size:24px;">Месседж: {{ob.message}}</div></div>
+            <h2>Ваш ответ:</h2>
+            <form action="/ad/{{ob.id}}/send/" method="POST">
+                {% csrf_token %}
+                {{form.answer}}
+                <br>
+                <input class="btn btn-success btn-lg" type="submit" value="Отправить">
+            </form>
+            <br>
+            <form action="/ad/{{ob.id}}/delete/" method="POST">
+                {% csrf_token %}
+                <input class="btn btn-danger btn-lg" type="submit" value="Удалить">
+            </form>
+        <br>
+{% endif %}
+{% endfor %}
+        <hr>
+        <a href="/" class="btn btn-primary btn-lg">Назад</a>
+    </div>
+</div>
+
+ <!--<form action="/catalog/addcomment/{{ art.id }}/" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{{ form_comments.as_p }}-->
+    <!--<input class="btn btn-success" type="submit" value="Отправить" />-->
+<!--</form>-->
+      <!---->
+
+
+
+</body>
+</html>
